@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  /* background-color: #282c34; */
+
 }
 
 .App-logo {
@@ -35,4 +40,17 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.navbar {
+  padding:20px;
+  background-color:#282c34;
+  color: white;
+}
+
+.card{
+  padding-top: 5%;
+  display: flex;
+  justify-content: center;
 }
