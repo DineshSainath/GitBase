@@ -14,9 +14,11 @@ const [repos, setRepos] = useState('');
 const [avatar, setAvatar] = useState('');
 const [userInput, setUserInput] = useState('');
 const [joined, setJoined] = useState('');
+const [bio, setBio] = useState('');
+// const joinDate = JSON.parse(joined);
 
   useEffect( () => {
-    fetch("https://api.github.com/users/dineshsainath")
+    fetch("https://api.github.com/users/")
     .then(res => res.json())
     .then(data =>
       setData(data)
@@ -31,17 +33,31 @@ const [joined, setJoined] = useState('');
       setFollowers(data.followers);
       setFollowing(data.following);
       setJoined(data.created_at);
+      setBio(data.bio);
+  }
+
+  function handleChange(e) {
+    setUserInput(e.target.value);
+  }
+
+  function handleSubmit(e){
+    fetch(`https://api.github.com/users/${userInput}`)
+    .then(res => res.json())
+    .then(data =>
+      setData(data)
+      )
   }
 
   return (
     <div>
     <Nav/>
     <div className="App">
-    <Form>
+    <Form onSubmit={handleSubmit}>
           <Form.Group>
             <Form.Input
               placeholder='Username'
               name='username'
+              onChange= {handleChange}
             />
             <Form.Button animated>
               <Button.Content visible>Submit</Button.Content>
@@ -62,13 +78,15 @@ const [joined, setJoined] = useState('');
         <span className='date'>Joined in {joined}</span>
       </Card.Meta>
       <Card.Description>
-        Thomas is a gambler from Birmhingam.
+        {bio}
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
       <a>
         <Icon name='user' />
-        22 Friends
+        Followers: {followers}
+      </a> <a className="Followers"> <Icon name='user' />
+        Following: {following}
       </a>
     </Card.Content>
   </Card>
